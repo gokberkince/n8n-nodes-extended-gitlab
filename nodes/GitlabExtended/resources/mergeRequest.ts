@@ -204,6 +204,10 @@ export async function handleMergeRequest(
 		requestMethod = 'GET';
 		const iid = this.getNodeParameter('mergeRequestIid', itemIndex) as number;
 		requirePositive.call(this, iid, 'mergeRequestIid', itemIndex);
+		const accessRawDiffs = this.getNodeParameter('accessRawDiffs', itemIndex, false) as boolean;
+		const unidiff = this.getNodeParameter('unidiff', itemIndex, false) as boolean;
+		if (accessRawDiffs) qs.access_raw_diffs = true;
+		if (unidiff) qs.unidiff = true;
 		endpoint = `${base}/merge_requests/${iid}/changes`;
 	} else if (operation === 'getDiscussions') {
 		requestMethod = 'GET';

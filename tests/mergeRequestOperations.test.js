@@ -280,6 +280,25 @@ test('getChanges builds correct endpoint', async () => {
 	);
 });
 
+test('getChanges includes query params when accessRawDiffs and unidiff are true', async () => {
+	const node = new GitlabExtended();
+	const ctx = createTrackedContext({
+		resource: 'mergeRequest',
+		operation: 'getChanges',
+		mergeRequestIid: 11,
+		accessRawDiffs: true,
+		unidiff: true,
+	});
+	await node.execute.call(ctx);
+	assert.strictEqual(ctx.calls.options.method, 'GET');
+	assert.strictEqual(
+		ctx.calls.options.uri,
+		'https://gitlab.example.com/api/v4/projects/1/merge_requests/11/changes',
+	);
+	assert.strictEqual(ctx.calls.options.qs.access_raw_diffs, true);
+	assert.strictEqual(ctx.calls.options.qs.unidiff, true);
+});
+
 test('getDiscussions builds correct endpoint with limit', async () => {
 	const node = new GitlabExtended();
 	const ctx = createTrackedContext({

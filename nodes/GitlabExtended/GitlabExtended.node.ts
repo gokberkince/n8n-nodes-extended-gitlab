@@ -739,6 +739,32 @@ export class GitlabExtended implements INodeType {
 				default: 1,
 			},
 			{
+				displayName: 'Access Raw Diffs',
+				name: 'accessRawDiffs',
+				type: 'boolean',
+				displayOptions: {
+					show: {
+						resource: ['mergeRequest'],
+						operation: ['getChanges'],
+					},
+				},
+				description: 'Whether to retrieve the raw diff for each change',
+				default: false,
+			},
+			{
+				displayName: 'Unidiff',
+				name: 'unidiff',
+				type: 'boolean',
+				displayOptions: {
+					show: {
+						resource: ['mergeRequest'],
+						operation: ['getChanges'],
+					},
+				},
+				description: 'Whether to present diffs in unified diff format',
+				default: false,
+			},
+			{
 				displayName: 'Labels',
 				name: 'labels',
 				type: 'string',
